@@ -16,10 +16,9 @@ import (
 func CreateDiagnostic(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var diagReq models.DiagnosticRequest
-
-	// Décoder le JSON de la requête
-	if err := json.NewDecoder(r.Body).Decode(&diagReq); err != nil {
+	// Lire le body en bytes pour pouvoir le parser deux fois si nécessaire
+	var rawData map[string]interface{}
+	if err := json.NewDecoder(r.Body).Decode(&rawData); err != nil {
 		log.Printf("Erreur de décodage JSON: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(models.DiagnosticResponse{
@@ -27,6 +26,39 @@ func CreateDiagnostic(w http.ResponseWriter, r *http.Request) {
 			Message: "Format JSON invalide: " + err.Error(),
 		})
 		return
+	}
+
+	var diagReq models.DiagnosticRequest
+
+	// Vérifier si c'est le format Swift (plat) ou le format standard (imbriqué)
+	if _, hasSystemInfo := rawData["system_info"]; hasSystemInfo {
+		// Format standard (imbriqué)
+		jsonBytes, _ := json.Marshal(rawData)
+		if err := json.Unmarshal(jsonBytes, &diagReq); err != nil {
+			log.Printf("Erreur de parsing format standard: %v", err)
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(models.DiagnosticResponse{
+				Success: false,
+				Message: "Format JSON invalide: " + err.Error(),
+			})
+			return
+		}
+	} else {
+		// Format Swift (plat)
+		var swiftReq models.SwiftDiagnosticRequest
+		jsonBytes, _ := json.Marshal(rawData)
+		if err := json.Unmarshal(jsonBytes, &swiftReq); err != nil {
+			log.Printf("Erreur de parsing format Swift: %v", err)
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(models.DiagnosticResponse{
+				Success: false,
+				Message: "Format JSON invalide: " + err.Error(),
+			})
+			return
+		}
+		// Convertir au format standard
+		diagReq = swiftReq.ToStandardRequest()
+		log.Printf("📱 Format Swift détecté et converti")
 	}
 
 	// Valider les données
