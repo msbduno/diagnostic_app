@@ -61,34 +61,34 @@ Cette application permet de réaliser un diagnostic automatisé des composants h
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Mac à diagnostiquer                      │
-│                                                               │
+│                     Mac à diagnostiquer                     │
+│                                                             │
 │  ┌───────────────────────────────────────────────────────┐  │
-│  │          Application Swift (SwiftUI)                   │  │
-│  │                                                         │  │
+│  │          Application Swift (SwiftUI)                  │  │
+│  │                                                       │  │
 │  │  1. Lance tests hardware (IOKit, ProcessInfo)         │  │
 │  │  2. Affiche progression                               │  │
 │  │  3. Présente résultats                                │  │
-│  └──────────────────────┬──────────────────────────────────┘  │
-│                         │ HTTP POST                           │
-└─────────────────────────┼─────────────────────────────────────┘
+│  └──────────────────────┬────────────────────────────────┘  │
+│                         │ HTTP POST                         │
+└─────────────────────────┼───────────────────────────────────┘
                           │
                           ▼
          ┌────────────────────────────────────┐
          │      Backend API (Go + Gin)        │
          │                                    │
-         │  • Endpoint POST /api/diagnostics │
-         │  • Validation des données         │
-         │  • Logs et monitoring             │
+         │  • Endpoint POST /api/diagnostics  │
+         │  • Validation des données          │
+         │  • Logs et monitoring              │
          └────────────┬───────────────────────┘
                       │
                       ▼
          ┌────────────────────────────────────┐
          │     Base de données (SQLite)       │
          │                                    │
-         │  • Stockage des diagnostics       │
-         │  • Historique des tests           │
-         │  • Fichier: diagnostics.db        │
+         │  • Stockage des diagnostics        │
+         │  • Historique des tests            │
+         │  • Fichier: diagnostics.db         │
          └────────────────────────────────────┘
 ```
 
