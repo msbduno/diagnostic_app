@@ -3,7 +3,13 @@
 > Application de diagnostic hardware automatisé pour Mac - Proof of Concept
 
 ---
+## Démonstration
 
+
+https://github.com/user-attachments/assets/388aa4a2-e71f-4d1f-9655-27957fd3673f
+
+
+---
 ## Table des Matières
 
 - [Vue d'ensemble](#vue-densemble)
