@@ -10,18 +10,7 @@ https://github.com/user-attachments/assets/388aa4a2-e71f-4d1f-9655-27957fd3673f
 
 
 ---
-## Table des Matières
 
-- [Vue d'ensemble](#vue-densemble)
-- [Fonctionnalités](#fonctionnalités)
-- [Architecture](#architecture)
-- [Stack Technique](#stack-technique)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [API Documentation](#api-documentation)
-- [Modèle de Données](#modèle-de-données)
-
----
 
 ## Vue d'ensemble
 
@@ -50,7 +39,7 @@ Cette application permet de réaliser un diagnostic automatisé des composants h
 - Stockage SQLite des résultats
 - Validation des données entrantes
 - Logs détaillés pour debug
-- Gestion CORS pour développement
+
 
 ### Tests Réalisés
 | Composant | Informations Collectées |
@@ -145,27 +134,6 @@ git clone https://github.com/votre-username/mini-diagnostic-app.git
 cd mini-diagnostic-app
 ```
 
-### 2. Installation du Backend
-
-```bash
-cd backend
-go mod download
-go build -o diagnostic-api
-```
-
-### 3. Installation de l'App macOS
-
-```bash
-cd ../macos-app
-# Ouvrir avec Xcode
-open DiagnosticApp.xcodeproj
-```
-
-Ou compiler en ligne de commande :
-```bash
-xcodebuild -scheme DiagnosticApp -configuration Release
-```
-
 ---
 
 ## Utilisation
@@ -179,12 +147,6 @@ cd backend
 
 Le serveur démarre sur `http://localhost:8080`
 
-**Logs de démarrage :**
-```
-[GIN] 2025/12/09 - 14:30:00 | Server starting on :8080
-[DB] Database initialized: diagnostics.db
-[GIN] Listening on 0.0.0.0:8080
-```
 
 ### Lancement de l'Application macOS
 
@@ -256,18 +218,6 @@ Récupère l'historique des diagnostics d'une machine.
     "status": "completed"
   }
 ]
-```
-
-#### GET /health
-
-Vérifie l'état du serveur.
-
-**Response (200 OK) :**
-```json
-{
-  "status": "ok",
-  "database": "connected"
-}
 ```
 
 ---
@@ -350,54 +300,3 @@ mini-diagnostic-app/
 ```
 
 ---
-
-## Configuration
-
-### Backend (backend/config.go)
-
-```go
-const (
-    ServerPort = ":8080"
-    DatabaseFile = "diagnostics.db"
-    EnableCORS = true
-)
-```
-
-### App macOS (DiagnosticApp/Config.swift)
-
-```swift
-struct Config {
-    static let apiBaseURL = "http://localhost:8080/api"
-    static let timeout: TimeInterval = 30.0
-}
-```
-
----
-
-## Tests
-
-### Tester le Backend
-
-```bash
-# Health check
-curl http://localhost:8080/health
-
-# Envoyer un diagnostic test
-curl -X POST http://localhost:8080/api/diagnostics \
-  -H "Content-Type: application/json" \
-  -d '{
-    "serial_number": "TEST123",
-    "cpu_model": "Apple M2",
-    "cpu_cores": 8,
-    "ram_total_gb": 16.0,
-    "status": "completed"
-  }'
-```
-
-### Consulter la BDD
-
-```bash
-sqlite3 backend/diagnostics.db
-sqlite> SELECT * FROM diagnostic_tests;
-sqlite> .exit
-```
