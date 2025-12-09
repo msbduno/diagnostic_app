@@ -91,7 +91,7 @@ func GetDiagnostics(w http.ResponseWriter, r *http.Request) {
 		diagnostics = []models.Diagnostic{}
 	}
 
-	log.Printf("📋 Récupération de %d diagnostics", len(diagnostics))
+	log.Printf(" Récupération de %d diagnostics", len(diagnostics))
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.DiagnosticsListResponse{
@@ -129,7 +129,7 @@ func GetDiagnosticByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("📄 Récupération du diagnostic ID: %d", id)
+	log.Printf(" Récupération du diagnostic ID: %d", id)
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
@@ -160,7 +160,7 @@ func GetDiagnosticsBySerial(w http.ResponseWriter, r *http.Request) {
 		diagnostics = []models.Diagnostic{}
 	}
 
-	log.Printf("📋 Récupération de %d diagnostics pour la machine %s", len(diagnostics), serialNumber)
+	log.Printf(" Récupération de %d diagnostics pour la machine %s", len(diagnostics), serialNumber)
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(models.DiagnosticsListResponse{
@@ -185,7 +185,7 @@ func GetStatistics(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Println("📊 Récupération des statistiques")
+	log.Println("Récupération des statistiques")
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
