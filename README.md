@@ -1,6 +1,6 @@
 # Mini Diagnostic App
 
-> Application de diagnostic hardware automatisé pour Mac - Proof of Concept
+> Application de diagnostic hardware automatisé pour Mac 
 
 ---
 ## Démonstration
@@ -14,7 +14,8 @@ https://github.com/user-attachments/assets/388aa4a2-e71f-4d1f-9655-27957fd3673f
 
 ## Vue d'ensemble
 
-Cette application permet de réaliser un diagnostic automatisé des composants hardware d'un Mac dans un contexte de reconditionnement industriel. Elle collecte les informations essentielles (CPU, RAM, Stockage, Batterie) et les transmet automatiquement à un backend pour stockage et analyse.
+Cette application permet de réaliser un diagnostic automatisé des composants hardware d'un Mac. 
+Elle collecte les informations essentielles (CPU, RAM, Stockage, Batterie) et les transmet automatiquement à un backend pour stockage et analyse.
 
 ### Objectifs
 - **Rapidité** : Test complet en moins de 1 minute
