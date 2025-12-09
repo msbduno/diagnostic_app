@@ -1,0 +1,39 @@
+# Ignore la base de données
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Ignore les binaires Go
+diagnostic-server
+diagnostic-backend
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Ignore les fichiers de test
+*.test
+*.out
+
+# Ignore le dossier vendor si utilisé
+/vendor/
+
+# Ignore les fichiers de configuration locaux
+.env
+
+# Ignore les fichiers macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Ignore les dossiers IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Ignore les logs
+*.log
