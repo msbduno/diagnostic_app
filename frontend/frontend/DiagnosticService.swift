@@ -5,10 +5,13 @@
 //  Created by Mathis Bossard on 09/12/2025.
 //
 
-import Foundation
-import IOKit
-import IOKit.ps
-import Combine
+import Foundation //pour les fonctionnalités de base comme Date, URL, etc.
+import Combine // Pour ObservableObject qui permet la liaison avec l'UI
+
+// IOKIT est un framework bas niveau d’Apple (macOS / iOS internes)
+import IOKit // Pour recupérer les infos système
+import IOKit.ps // Pour recupérer les infos batterie
+
 
 class DiagnosticService: ObservableObject {
     

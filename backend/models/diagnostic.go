@@ -10,7 +10,7 @@ type CPUInfo struct {
 	Model       string `json:"model"`
 	Cores       int    `json:"cores"`
 	Frequency   string `json:"frequency"`
-	Temperature string `json:"temperature,omitempty"`
+	Temperature string `json:"temperature,omitempty"` //omitempty = "omettre si vide".
 }
 
 // RAMInfo représente les informations de la mémoire

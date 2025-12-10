@@ -58,7 +58,7 @@ func CreateDiagnostic(w http.ResponseWriter, r *http.Request) {
 		}
 		// Convertir au format standard
 		diagReq = swiftReq.ToStandardRequest()
-		log.Printf("📱 Format Swift détecté et converti")
+		log.Printf("Format Swift détecté et converti")
 	}
 
 	// Valider les données
@@ -187,6 +187,8 @@ func GetDiagnosticsBySerial(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
+	//Si err == nil → tout va bien
 
 	if diagnostics == nil {
 		diagnostics = []models.Diagnostic{}

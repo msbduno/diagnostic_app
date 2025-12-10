@@ -27,6 +27,7 @@ func main() {
 		port = defaultPort
 	}
 
+	//:= : Déclaration + assignation (type inféré)
 	dbPath := os.Getenv("DB_PATH")
 	if dbPath == "" {
 		dbPath = defaultDBPath
@@ -36,7 +37,7 @@ func main() {
 	if err := database.InitDB(dbPath); err != nil {
 		log.Fatalf(" Erreur d'initialisation de la base de données: %v", err)
 	}
-	defer database.CloseDB()
+	defer database.CloseDB() //defer = exécute à la fin de la fonction main
 
 	// Créer le routeur
 	router := mux.NewRouter()
@@ -57,9 +58,11 @@ func main() {
 	api.HandleFunc("/statistics", handlers.GetStatistics).Methods("GET")
 
 	// Middleware de logging
+	//Un middleware est un intercepteur qui s'exécute avant chaque requête (comme un filtre en Java).
 	router.Use(loggingMiddleware)
 
 	// Configuration CORS
+	//Sans CORS, le navigateur bloque les requêtes cross-origin qui permettent de communiquer entre le frontend et le backend.
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // En production, spécifier les origines exactes
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -70,7 +73,6 @@ func main() {
 
 	handler := c.Handler(router)
 
-	// Démarrer le serveur
 	log.Printf("Serveur démarré sur le port %s", port)
 	log.Printf("API disponible sur http://localhost:%s/api/v1", port)
 	log.Printf(" Health check: http://localhost:%s/api/v1/health", port)
@@ -83,6 +85,7 @@ func main() {
 	log.Println("   GET    /api/v1/statistics")
 	log.Println("")
 
+	// Démarrer le serveur
 	if err := http.ListenAndServe(":"+port, handler); err != nil {
 		log.Fatalf(" Erreur du serveur: %v", err)
 	}
